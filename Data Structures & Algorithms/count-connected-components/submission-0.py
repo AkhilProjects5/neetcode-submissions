@@ -1,0 +1,27 @@
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        adj = [[] for _ in range(n)]
+
+        for n1,n2 in edges:
+            adj[n1].append(n2)
+            adj[n2].append(n1)
+
+        visit = [False]*n
+
+        def dfs(node):
+            for i in adj[node]:
+                if not visit[i]:
+                    visit[i] = True
+                    dfs(i)
+
+        res = 0
+
+        for node in range(n):
+            if not visit[node]:
+                visit[node] = True
+                dfs(node)
+                res+=1
+        return res
+
+
+        
